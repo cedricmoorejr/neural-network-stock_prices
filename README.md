@@ -207,7 +207,7 @@ test_data = data_1[proportion:] # Split into Test Set
 
 
 
-Next we will prepare the data in such a way that its suitable for training an LSTM. To do that, I created a class called sequences.
+Next we will prepare the data in such a way that its suitable for training an LSTM. To do that, I created a class called sequence.
 LSTM models are a type of recurrent neural network (RNN) that are capable of learning patterns and dependencies in sequential data. To train an LSTM model, the input data needs to be structured as sequences, where each sequence represents a pattern of input features over a certain time window.
 
 By creating sequences from the original data, the LSTM model can learn the temporal dependencies and patterns in the data. Each input sequence (X) corresponds to a set of previous data points, and the target value (y) is the next data point following that sequence. In this way, the model can learn to predict the next data point based on the preceding sequence.
@@ -216,14 +216,14 @@ Creating sequences is important because it enables the LSTM model to capture the
 
 ```
 # Prepare the data in a format suitable for training an LSTM
-from generate import sequences  # Custom class
+from recurrent_neural_networks import sequence
 # Create training sequences
-Train_X, Train_Y = sequences.create(data = train_data["normalized_close_price"].values, sequence_length = choose_sequence_length)
+Train_X, Train_Y = sequence.create(data = train_data["normalized_close_price"].values, length = choose_sequence_length)
 
 # Create testing sequences
-Test_X, Test_Y = sequences.create(data=test_data["normalized_close_price"].values, sequence_length = choose_sequence_length)
+Test_X, Test_Y = sequence.create(data=test_data["normalized_close_price"].values, length = choose_sequence_length)
 
-# Reshape the input data to be 3-dimensional in the form [samples, time steps, features]
+# This is the input data. It must be reshaped in the form of a 3D tensor.
 Train_X = np.reshape(Train_X, (Train_X.shape[0], Train_X.shape[1], 1))
 Test_X = np.reshape(Test_X, (Test_X.shape[0], Test_X.shape[1], 1))
 #-------
