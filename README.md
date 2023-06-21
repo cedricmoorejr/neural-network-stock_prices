@@ -9,6 +9,7 @@ choose_sequence_length = 60
 
 # Split the data into training and testing sets
 choose_split_size = 0.8
+#-------
 ```
 
 
@@ -24,6 +25,7 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
+#-------
 ```
 
 
@@ -35,6 +37,7 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 # Load the stock price data into a Pandas DataFrame
 from StockPrice import StockPrice as Stock
 df = Stock.stock_to_df(ticker=ticker, start=start_date, end=end_date, columns=["Date", "Close"])
+#-------
 ```
 
 When dealing with stock price data that has gaps due to holidays and
@@ -68,8 +71,10 @@ missing_dates = complete_date_range[~complete_date_range.isin(df.index)]
 # Add the missing dates to the DataFrame with Close prices as NaN
 df = df.reindex(complete_date_range).reset_index(drop=False).rename(columns={"index": "Date"})
 del startDate, endDate, complete_date_range
-
+#-------
 ```
+
+
 One of those approaches is by using interpolation
 methods. Since this is time series data, we will use linear interpolation.
 This method will estimate the missing values based on the available data points.
@@ -79,6 +84,7 @@ This method will estimate the missing values based on the available data points.
 data_1 = df.copy()
 data_1["Close"].interpolate(method="linear", inplace=True)
 print(data_1)
+#-------
 ```
 
 While we're at it, lets look at a few more interpolation methods. This method is called Polynomial Interpolation.
@@ -103,6 +109,7 @@ evaluating the quadratic equation at the missing positions.
 data_2 = df.copy()
 data_2["Close"].interpolate(method="polynomial", order=2, inplace=True)
 print(data_2)
+#-------
 ```
 
 
@@ -133,6 +140,7 @@ approximations.
 data_3 = df.copy()
 data_3["Close"].interpolate(method="spline", order=2, inplace=True)
 print(data_3)
+#-------
 ```
 
 
@@ -162,7 +170,7 @@ missing_values = fitted_SARIMA_model.predict(start=missing_dates[0], end=missing
 # Fill in the missing values in the DataFrame
 data_4.loc[missing_dates, "Close"] = missing_values
 print(data_4)
-
+#-------
 ```
 
 
@@ -173,11 +181,20 @@ These techniques are commonly applied to improve the performance and
 convergence of machine learning models, especially when working with
 features that have different scales or distributions. On a technical note, we wont be necessarily scaling this data, just normalizing it.
 ```
-## Normalization
+# Normalization
 norm = MinMaxScaler(feature_range=(0, 1)) # Normalize the closing prices to the range of 0 to 1
 data_1["normalized_close_price"] = norm.fit_transform(data_1["Close"].values.reshape(-1, 1))
+#-------
 ```
 
 As a final step in the data preprocessing stage, the data is divided into two sets: a training set and a test set. The
 training set is used to train the LSTM model, while the test set is used
 to evaluate the model's performance on unseen data.
+
+```
+# Splitting into Training and Test Sets
+proportion = int(len(data_1) * choose_split_size) # proportion of the training set relative to the entire dataset
+train_data = data_1[:proportion]
+test_data = data_1[proportion:]
+#-------
+```
