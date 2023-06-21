@@ -71,6 +71,6 @@ data_1["Close"].interpolate(method="linear", inplace=True)
 print(data_1)
 ```
 
-
+While we're at it, lets look at a few more interpolation methods.
 
 
