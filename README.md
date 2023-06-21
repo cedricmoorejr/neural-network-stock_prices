@@ -1,6 +1,9 @@
 # Data
 
 ```
+##================================================================
+##                 Step 4: Build the LSTM model                 ==
+##================================================================
 model = Sequential()
 
 # Add an LSTM layer with 50 units and input shape
