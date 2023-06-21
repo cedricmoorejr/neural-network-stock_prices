@@ -35,7 +35,7 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 # Step 2: Load and Preprocess the Data
 ```
 # Load the stock price data into a Pandas DataFrame
-from StockPrice import StockPrice as Stock
+from StockPrice import StockPrice as Stock   # Custom class
 df = Stock.stock_to_df(ticker=ticker, start=start_date, end=end_date, columns=["Date", "Close"])
 #-------
 ```
@@ -197,8 +197,41 @@ The first thing that we are going to do in this step is divide the data into two
 training set is used to train the LSTM model, while the test set is used
 to evaluate the model's performance on unseen data.
 ```
+# Split data into sets
 proportion = int(len(data_1) * choose_split_size) # proportion of the training set relative to the entire dataset
 train_data = data_1[:proportion] # Split into Training Set
 test_data = data_1[proportion:] # Split into Test Set
 #-------
 ```
+
+
+
+
+Next we will prepare the data in such a way that its suitable for training an LSTM. To do that, I created a class called sequences.
+LSTM models are a type of recurrent neural network (RNN) that are capable of learning patterns and dependencies in sequential data. To train an LSTM model, the input data needs to be structured as sequences, where each sequence represents a pattern of input features over a certain time window.
+
+By creating sequences from the original data, the LSTM model can learn the temporal dependencies and patterns in the data. Each input sequence (X) corresponds to a set of previous data points, and the target value (y) is the next data point following that sequence. In this way, the model can learn to predict the next data point based on the preceding sequence.
+
+Creating sequences is important because it enables the LSTM model to capture the temporal dynamics and dependencies in the data, which is crucial for accurate predictions in time series forecasting tasks, such as stock price prediction.
+
+```
+# Prepare the data in a format suitable for training an LSTM
+from generate import sequences  # Custom class
+# Create training sequences
+Train_X, Train_Y = sequences.create(data = train_data["normalized_close_price"].values, sequence_length = choose_sequence_length)
+
+# Create testing sequences
+Test_X, Test_Y = sequences.create(data=test_data["normalized_close_price"].values, sequence_length = choose_sequence_length)
+
+# Reshape the input data to be 3-dimensional in the form [samples, time steps, features]
+Train_X = np.reshape(Train_X, (Train_X.shape[0], Train_X.shape[1], 1))
+Test_X = np.reshape(Test_X, (Test_X.shape[0], Test_X.shape[1], 1))
+#-------
+```
+
+
+
+
+
+
+
