@@ -1,6 +1,4 @@
-# Data
-
-*User Input
+# User Input
 ```
 start_date = "2020-01-01"
 end_date = "2023-06-19"
