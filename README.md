@@ -10,6 +10,9 @@ choose_sequence_length = 60
 # Split the data into training and testing sets
 choose_split_size = 0.8
 ```
+
+
+
 # Step 1: Import the Required Libraries 
 ```
 import os
@@ -24,12 +27,16 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 ```
 
 
+
+
+
 # Step 2: Load and Preprocess the Data
 ```
 # Load the stock price data into a Pandas DataFrame
 from StockPrice import StockPrice as Stock
 df = Stock.stock_to_df(ticker=ticker, start=start_date, end=end_date, columns=["Date", "Close"])
 ```
+
 When dealing with stock price data that has gaps due to holidays and
 weekends, we can encounter issues in the model such as disrupted patterns,
 increased noise, and inaccurate volatility estimation. We could forward
@@ -68,7 +75,7 @@ methods. Since this is time series data, we will use linear interpolation.
 This method will estimate the missing values based on the available data points.
 
 ```
-# Performs linear interpolation to estimate the missing values in the 'Close' column of the DataFrame
+# Performs Linear Interpolation to estimate the missing values in the 'Close' column of the DataFrame
 data_1 = df.copy()
 data_1["Close"].interpolate(method="linear", inplace=True)
 print(data_1)
@@ -100,7 +107,7 @@ print(data_2)
 
 
 
-
+This last interpolation method is called Spline Interpolation.
 A spline is a piecewise-defined function that consists of multiple
 polynomial segments, where each segment is determined by a set of control
 points. The order of the spline determines the degree of the polynomials
@@ -131,6 +138,12 @@ print(data_3)
 
 
 
+
+The next approach we will try is by using advanced time-series modeling
+techniques. One popular technique is the use of SARIMA (Seasonal
+Autoregressive Integrated Moving Average) models. SARIMA models can handle
+seasonality, trends, and autoregressive properties in the data.
+
 ```
 # Seasonal Autoregressive Integrated Moving Average (SARIMA)
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -151,7 +164,3 @@ data_4.loc[missing_dates, "Close"] = missing_values
 print(data_4)
 
 ```
-The next approach we will try is by using advanced time-series modeling
-techniques. One popular technique is the use of SARIMA (Seasonal
-Autoregressive Integrated Moving Average) models. SARIMA models can handle
-seasonality, trends, and autoregressive properties in the data.
