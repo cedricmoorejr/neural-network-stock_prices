@@ -60,9 +60,16 @@ df = df.reindex(complete_date_range).reset_index(drop=False).rename(columns={"in
 del startDate, endDate, complete_date_range
 
 ```
+One of those approaches is by using interpolation
+methods. Since this is time series data, we will use linear interpolation.
+This method will estimate the missing values based on the available data points.
 
-
-
+```
+# Performs linear interpolation to estimate the missing values in the 'Close' column of the DataFrame
+data_1 = df.copy()
+data_1["Close"].interpolate(method="linear", inplace=True)
+print(data_1)
+```
 
 
 
