@@ -72,5 +72,26 @@ print(data_1)
 ```
 
 While we're at it, lets look at a few more interpolation methods.
+```
+# Polynomial Interpolation
+data_2 = df.copy()
+data_2["Close"].interpolate(method="polynomial", order=2, inplace=True)
+print(data_2)
+```
+A polynomial of degree "n" has "n + 1" coefficients and can approximate a
+curve of degree "n". By increasing the order, you increase the flexibility
+of the polynomial to fit the data more closely, but there is also a higher
+risk of overfitting or introducing noise.  In the case of polynomial
+interpolation, increasing the order can capture more intricate patterns in
+the data but may also result in a more erratic fit, especially when
+dealing with noisy or limited data points. Conversely, a lower order may
+yield a smoother but less accurate approximation.  It's important to
+strike a balance when choosing the order. A good practice is to start with
+a low order (such as 1 or 2) and gradually increase it if needed,
+carefully assessing the trade-off between accuracy and complexity.  For
+example, using order=2 in polynomial interpolation means fitting a
+quadratic polynomial to the data points. This polynomial will have three
+coefficients (a, b, c), and the interpolated values will be obtained by
+evaluating the quadratic equation at the missing positions.
 
 
