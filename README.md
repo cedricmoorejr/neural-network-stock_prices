@@ -180,7 +180,7 @@ As a final step in the preprocessing phase, we will begin scaling and normalizin
 transform the values of a dataset to a specific range or distribution.
 These techniques are commonly applied to improve the performance and
 convergence of machine learning models, especially when working with
-features that have different scales or distributions. On a technical note, we wont be necessarily scaling this data, just normalizing it.
+features that have different scales or distributions.
 ```
 # Normalization
 norm = MinMaxScaler(feature_range=(0, 1)) # Normalize the closing prices to the range of 0 to 1
