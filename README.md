@@ -25,7 +25,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 
 ```
-#Step 2: Load and Preprocess the Data
+# Step 2: Load and Preprocess the Data
 ```
 # Load the stock price data into a Pandas DataFrame
 from StockPrice import StockPrice as Stock
