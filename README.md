@@ -1,4 +1,6 @@
 # Data
+
+```
 model = Sequential()
 
 # Add an LSTM layer with 50 units and input shape
@@ -14,3 +16,4 @@ model.add(Dense(1))
 
 # Compile the model
 model.compile(loss="mean_squared_error", optimizer="adam")
+```
