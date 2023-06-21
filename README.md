@@ -74,13 +74,7 @@ data_1["Close"].interpolate(method="linear", inplace=True)
 print(data_1)
 ```
 
-While we're at it, lets look at a few more interpolation methods.
-```
-# Polynomial Interpolation
-data_2 = df.copy()
-data_2["Close"].interpolate(method="polynomial", order=2, inplace=True)
-print(data_2)
-```
+While we're at it, lets look at a few more interpolation methods. This method is called Polynomial Interpolation.
 A polynomial of degree "n" has "n + 1" coefficients and can approximate a
 curve of degree "n". By increasing the order, you increase the flexibility
 of the polynomial to fit the data more closely, but there is also a higher
@@ -98,11 +92,15 @@ coefficients (a, b, c), and the interpolated values will be obtained by
 evaluating the quadratic equation at the missing positions.
 
 ```
-# Spline Interpolation
-data_3 = df.copy()
-data_3["Close"].interpolate(method="spline", order=2, inplace=True)
-print(data_3)
+# Polynomial Interpolation
+data_2 = df.copy()
+data_2["Close"].interpolate(method="polynomial", order=2, inplace=True)
+print(data_2)
 ```
+
+
+
+
 A spline is a piecewise-defined function that consists of multiple
 polynomial segments, where each segment is determined by a set of control
 points. The order of the spline determines the degree of the polynomials
@@ -122,6 +120,17 @@ derivative, resulting in smooth curves. You can adjust the order parameter
 to use higher values (e.g., 3 for cubic splines) to capture more intricate
 patterns or lower values (e.g., 1 for linear splines) for smoother
 approximations.
+
+```
+# Spline Interpolation
+data_3 = df.copy()
+data_3["Close"].interpolate(method="spline", order=2, inplace=True)
+print(data_3)
+```
+
+
+
+
 ```
 # Seasonal Autoregressive Integrated Moving Average (SARIMA)
 from statsmodels.tsa.statespace.sarimax import SARIMAX
