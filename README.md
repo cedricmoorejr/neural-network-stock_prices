@@ -119,8 +119,7 @@ derivative, resulting in smooth curves. You can adjust the order parameter
 to use higher values (e.g., 3 for cubic splines) to capture more intricate
 patterns or lower values (e.g., 1 for linear splines) for smoother
 approximations.
-```
-```
+# 
 The next approach we will try is by using advanced time-series modeling
 techniques. One popular technique is the use of SARIMA (Seasonal
 Autoregressive Integrated Moving Average) models. SARIMA models can handle
