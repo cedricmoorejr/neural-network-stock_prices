@@ -212,7 +212,7 @@ LSTM models are a type of recurrent neural network (RNN) that are capable of lea
 
 By creating sequences from the original data, the LSTM model can learn the temporal dependencies and patterns in the data. Each input sequence (X) corresponds to a set of previous data points, and the target value (y) is the next data point following that sequence. In this way, the model can learn to predict the next data point based on the preceding sequence.
 
-Creating sequences is important because it enables the LSTM model to capture the temporal dynamics and dependencies in the data, which is crucial for accurate predictions in time series forecasting tasks, such as stock price prediction.
+For time-series data like stock prices, it's important to create sequences of input-output pairs for the LSTM model. Each input sequence contains a window of previous days' prices, and the corresponding output is the price of the next day. The sequence length is a parameter that determines how many previous days' prices are used for prediction.
 
 ```
 # Prepare the data in a format suitable for training an LSTM
@@ -230,8 +230,7 @@ Test_X = np.reshape(Test_X, (Test_X.shape[0], Test_X.shape[1], 1))
 ```
 
 
-
-
+# Step 4: Build the LSTM model 
 
 
 
