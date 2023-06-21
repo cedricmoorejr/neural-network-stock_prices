@@ -94,4 +94,29 @@ quadratic polynomial to the data points. This polynomial will have three
 coefficients (a, b, c), and the interpolated values will be obtained by
 evaluating the quadratic equation at the missing positions.
 
+```
+# Spline Interpolation
+data_3 = df.copy()
+data_3["Close"].interpolate(method="spline", order=2, inplace=True)
+print(data_3)
+```
+A spline is a piecewise-defined function that consists of multiple
+polynomial segments, where each segment is determined by a set of control
+points. The order of the spline determines the degree of the polynomials
+used within each segment.  When performing spline interpolation with
+method='spline', increasing the order allows for higher degree polynomials
+within each segment, resulting in a more flexible curve that can closely
+fit the data points. Higher-order splines can capture more complex
+patterns and exhibit more local variations.  It's important to note that
+the "order" parameter in spline interpolation does not refer to the
+overall degree of the polynomial curve but rather the degree of the
+polynomials within each segment. The overall degree of the spline curve
+will depend on the number of segments and the degree of the polynomials
+used in each segment.  In the example code provided, using order=2 for
+spline interpolation means fitting quadratic polynomials within each
+segment of the spline. Quadratic splines have a continuous first
+derivative, resulting in smooth curves. You can adjust the order parameter
+to use higher values (e.g., 3 for cubic splines) to capture more intricate
+patterns or lower values (e.g., 1 for linear splines) for smoother
+approximations.
 
