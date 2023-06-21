@@ -175,7 +175,7 @@ print(data_4)
 
 
 
-Next in the preprocessing phase, we will begin scaling and normalizing the data. Scaling and normalizing data are preprocessing techniques used to
+As a final step in the preprocessing phase, we will begin scaling and normalizing the data. Scaling and normalizing data are preprocessing techniques used to
 transform the values of a dataset to a specific range or distribution.
 These techniques are commonly applied to improve the performance and
 convergence of machine learning models, especially when working with
@@ -187,14 +187,18 @@ data_1["normalized_close_price"] = norm.fit_transform(data_1["Close"].values.res
 #-------
 ```
 
-As a final step in the data preprocessing stage, the data is divided into two sets: a training set and a test set. The
+
+
+
+
+
+# Step 3: Prepare the Training and Testing Data 
+The first thing that we are going to do in this step is divide the data into two sets: a training set and a test set. The
 training set is used to train the LSTM model, while the test set is used
 to evaluate the model's performance on unseen data.
-
 ```
-# Splitting into Training and Test Sets
 proportion = int(len(data_1) * choose_split_size) # proportion of the training set relative to the entire dataset
-train_data = data_1[:proportion]
-test_data = data_1[proportion:]
+train_data = data_1[:proportion] # Split into Training Set
+test_data = data_1[proportion:] # Split into Test Set
 #-------
 ```
