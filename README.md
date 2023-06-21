@@ -38,3 +38,32 @@ While this is not always accurate, it provides a reasonable approximation
 for short gaps like weekends and holidays. However, in this example, we
 want to be as accurate as possible, so we are going to look at some
 alternative approaches. So lets prep and clean the data.
+
+
+```
+# Find missing dates
+df["Date"] = pd.to_datetime(df["Date"])
+df.set_index("Date", inplace=True)
+
+# Get the minimum and maximum dates from the DataFrame
+startDate = df.index.min()
+endDate = df.index.max()
+
+# Create a complete date range from the minimum to the maximum date with daily frequency
+complete_date_range = pd.date_range(start=startDate, end=endDate, freq="D")
+
+# Identify the missing dates by comparing the complete date range with the existing dates in the DataFrame
+missing_dates = complete_date_range[~complete_date_range.isin(df.index)]
+
+# Add the missing dates to the DataFrame with Close prices as NaN
+df = df.reindex(complete_date_range).reset_index(drop=False).rename(columns={"index": "Date"})
+del startDate, endDate, complete_date_range
+
+```
+
+
+
+
+
+
+
