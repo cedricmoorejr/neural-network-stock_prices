@@ -1,22 +1,17 @@
 # Data
 
+User Input
 ```
-##================================================================
-##                 Step 4: Build the LSTM model                 ==
-##================================================================
-model = Sequential()
+##................................................................
+##                          User Input                          ..
+##................................................................
+start_date = "2020-01-01"
+end_date = "2023-06-19"
+ticker = "FDX" 
 
-# Add an LSTM layer with 50 units and input shape
-model.add(LSTM(50, input_shape=(choose_sequence_length, 1), return_sequences=True))
-model.add(Dropout(0.2))
+# Define the sequence length (number of previous time steps to consider)
+choose_sequence_length = 60
 
-# Add another LSTM layer with 50 units
-model.add(LSTM(50))
-model.add(Dropout(0.2))
-
-# Add a dense layer with 1 unit to output the predicted stock price
-model.add(Dense(1))
-
-# Compile the model
-model.compile(loss="mean_squared_error", optimizer="adam")
+# Split the data into training and testing sets
+choose_split_size = 0.8
 ```
