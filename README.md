@@ -164,3 +164,20 @@ data_4.loc[missing_dates, "Close"] = missing_values
 print(data_4)
 
 ```
+
+
+
+Next in the preprocessing phase, we will begin scaling and normalizing the data. Scaling and normalizing data are preprocessing techniques used to
+transform the values of a dataset to a specific range or distribution.
+These techniques are commonly applied to improve the performance and
+convergence of machine learning models, especially when working with
+features that have different scales or distributions. On a technical note, we wont be necessarily scaling this data, just normalizing it.
+```
+## Normalization
+norm = MinMaxScaler(feature_range=(0, 1)) # Normalize the closing prices to the range of 0 to 1
+data_1["normalized_close_price"] = norm.fit_transform(data_1["Close"].values.reshape(-1, 1))
+```
+
+As a final step in the data preprocessing stage, the data is divided into two sets: a training set and a test set. The
+training set is used to train the LSTM model, while the test set is used
+to evaluate the model's performance on unseen data.
