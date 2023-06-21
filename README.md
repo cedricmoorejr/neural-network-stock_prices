@@ -4,7 +4,8 @@ start_date = "2020-01-01"
 end_date = "2023-06-19"
 ticker = "FDX" 
 
-# Define the sequence length (number of previous time steps to consider)
+# Number of previous time steps to consider
+# i.e., how many previous days' prices are used for prediction
 choose_sequence_length = 60
 
 # Split the data into training and testing sets
@@ -231,6 +232,4 @@ Test_X = np.reshape(Test_X, (Test_X.shape[0], Test_X.shape[1], 1))
 
 
 # Step 4: Build the LSTM model 
-
-
-
+This step involves defining the structure of the LSTM model, including the number of LSTM layers, the number of units in each layer, the input shape, and any additional layers such as dropout or dense layers. Then, we move to specifying the loss function to optimize, the optimizer algorithm to use, and any additional evaluation metrics.
