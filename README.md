@@ -12,7 +12,7 @@ choose_sequence_length = 60
 # Split the data into training and testing sets
 choose_split_size = 0.8
 ```
-#Step 1: Import the Required Libraries 
+# Step 1: Import the Required Libraries 
 ```
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
