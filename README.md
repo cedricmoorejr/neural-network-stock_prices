@@ -119,7 +119,26 @@ derivative, resulting in smooth curves. You can adjust the order parameter
 to use higher values (e.g., 3 for cubic splines) to capture more intricate
 patterns or lower values (e.g., 1 for linear splines) for smoother
 approximations.
-# 
+```
+# Seasonal Autoregressive Integrated Moving Average (SARIMA)
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+# Create a time index for the DataFrame
+data_4 = df.copy()
+data_4.set_index("Date", inplace=True)
+
+# Fit a SARIMA model to the data
+SARIMA_model = SARIMAX(data_4["Close"], order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+fitted_SARIMA_model = SARIMA_model.fit()
+
+# Predict missing values using the fitted model
+missing_values = fitted_SARIMA_model.predict(start=missing_dates[0], end=missing_dates[-1])
+
+# Fill in the missing values in the DataFrame
+data_4.loc[missing_dates, "Close"] = missing_values
+print(data_4)
+
+```
 The next approach we will try is by using advanced time-series modeling
 techniques. One popular technique is the use of SARIMA (Seasonal
 Autoregressive Integrated Moving Average) models. SARIMA models can handle
