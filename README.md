@@ -62,12 +62,12 @@ Before running the code, you may need to configure the parameters to suit your n
 
 To use this project, follow these steps:
 
-1. Ensure that you have configured the parameters in the `main.py` file as described in the [Configuration](#configuration) section.
+1. Ensure that you have configured the parameters in the `model.py` file as described in the [Configuration](#configuration) section.
 
 2. Run the code:
 
 ```shell
-python main.py
+python model.py
 ```
 
 3. Explore the evaluation results and visualizations to assess the model's performance.
