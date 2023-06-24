@@ -284,10 +284,6 @@ By executing the `fit` method, the LSTM model learns to capture patterns and dep
 
 
 
-
-
-
-
 ### Step 6: Evaluate Model Results
 After training the model, it is expected to generalize its learned patterns to unseen data and make predictions on new or test data. The effectiveness of the trained model can be assessed by evaluating its performance on separate test data or by inspecting metrics such as loss values during training.
 ```
@@ -297,11 +293,24 @@ Test_loss = model.evaluate(Test_X, Test_Y, verbose=0)
 print(f"Train Loss: {Train_loss:.4f}")  # Printing the training loss
 print(f"Test Loss: {Test_loss:.4f}")  # Printing the test loss
 ```
+By evaluating the model on both training and test data, you can assess its performance and gain insights into how well it has learned from the training data and generalized to unseen data. Monitoring the loss values helps determine if further adjustments or optimizations are needed to improve the model's performance.
+
 
 ### Step 7: Make Predictions
+Now we move on to the final step. The code below is responsible for making predictions using the trained LSTM model on both the training and test datasets.
+```
+# Making predictions on training and test data
+Train_predictions = model.predict(Train_X)
+Test_predictions = model.predict(Test_X)
 
-- The trained model is used to make predictions on the training and test data.
-- The predictions are inverse-scaled to obtain the predicted stock prices in their original form.
+# Inverse scale the predictions to reverse the scaling transformation 
+# and bring the predictions and true labels back to their original scale. 
+# This is done to compare the predicted and actual stock prices in their original form 
+# for evaluation purposes.
+inverted_Train_predictions = norm.inverse_transform(Train_predictions)
+inverted_Test_predictions = norm.inverse_transform(Test_predictions)
+```
+By making predictions on both the training and test datasets, you can examine how well the LSTM model performs in capturing patterns and predicting values. Applying the inverse scaling transformation allows you to compare the predicted values on the original scale with the actual stock prices, enabling evaluation and analysis of the model's accuracy and effectiveness.
 
 This concludes the step-by-step walkthrough of the code.
 
