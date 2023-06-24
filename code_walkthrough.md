@@ -217,16 +217,86 @@ Test_X = np.reshape(Test_X, (Test_X.shape[0], Test_X.shape[1], 1))
 
 
 ### Step 4: Build the LSTM Model
-This step involves defining the structure of the LSTM model, including the number of LSTM layers, the number of units in each layer, the input shape, and any additional layers such as dropout or dense layers. Then, we move to specifying the loss function to optimize, the optimizer algorithm to use, and any additional evaluation metrics.
+Next we will focus on building the model.
+```
+# Begin defining model architecture
+model = Sequential()
+
+# Add an LSTM layer with 50 units and specify the input shape
+# choose_sequence_length is the length of each sequence
+# The input shape is (choose_sequence_length, 1) since we have 1 feature
+# Set return_sequences=True to return the output sequence rather than just the last output
+model.add(LSTM(50, input_shape=(choose_sequence_length, 1), return_sequences=True))
+
+# Add a dropout layer with a rate of 0.2
+# Dropout is a regularization technique to prevent overfitting
+# It randomly sets a fraction of input units to 0 during training
+model.add(Dropout(0.2))
+
+# Add another LSTM layer with 50 units
+# Since return_sequences is not specified, it defaults to False
+# So, this LSTM layer will only return the last output of the sequence
+model.add(LSTM(50))
+
+# Add another dropout layer
+model.add(Dropout(0.2))
+
+# Add a Dense layer with 1 unit
+# This layer is the output layer of the model
+model.add(Dense(1))
+
+# Compile the model
+# Use "mean_squared_error" as the loss function since it's a regression problem
+# Use the "adam" optimizer, which is a popular choice for gradient-based optimization
+model.compile(loss="mean_squared_error", optimizer="adam")
+```
+In this step, we are essentially doing a number of things:
+- Defining the model architecture: The code block outlines the structure and layers of the LSTM model. It sets up the sequence of layers in a sequential manner, starting with LSTM layers, followed by dropout layers, and ending with a dense output layer.
+
+- LSTM layer configuration: The LSTM layers are the core components of the model. They are responsible for learning and capturing temporal patterns in sequential data. In the code block, two LSTM layers are added to the model. The first LSTM layer has 50 units, specified using LSTM(50). The input shape is set to (choose_sequence_length, 1) to match the input data. By setting return_sequences=True, the layer returns the entire output sequence instead of just the last output, allowing for deeper learning.
+
+- Dropout regularization: Dropout layers, added after each LSTM layer, help prevent overfitting. They randomly set a fraction of input units to 0 during training, forcing the model to learn more robust and generalized representations. In the code block, dropout layers with a dropout rate of 0.2 are added using Dropout(0.2).
+
+- Output layer configuration: The final dense layer, added with Dense(1), serves as the output layer of the model. It consists of a single unit, which is appropriate for a regression problem where the goal is to predict a continuous numerical value.
+
+- Model compilation: After defining the architecture, the model is compiled using model.compile(). The loss function is set to "mean_squared_error", which measures the mean squared difference between the predicted and actual values. The optimizer "adam" is chosen for gradient-based optimization during training.
+
+Overall, this code block helps configure the LSTM model by defining its architecture, including LSTM layers for sequence learning, dropout layers for regularization, and an output layer for prediction. It also compiles the model with an appropriate loss function and optimizer for the specific regression task at hand.
 
 
 ### Step 5: Train the LSTM Model
+```
+# Training the model
+model.fit(Train_X, Train_Y, epochs=50, batch_size=32, verbose=0)
+```
+The code snippet `model.fit(Train_X, Train_Y, epochs=50, batch_size=32, verbose=0)` serves the purpose of training the LSTM model using the provided training data. Here's an explanation of each parameter in the `fit` method:
 
-- The model is trained on the training data using the `fit` method.
+- `Train_X`: The input training data (features) used to train the LSTM model. It is a 3D tensor representing the input sequences.
+- `Train_Y`: The target training data (labels) used to train the LSTM model. It represents the expected output for each input sequence.
+- `epochs`: The number of times the training data will be iterated over during the training process. Each epoch consists of one pass through the entire training dataset.
+- `batch_size`: The number of samples used in each iteration to update the model's weights. The dataset is divided into batches, and the model is updated after processing each batch.
+- `verbose`: A parameter that controls the verbosity of the training process. Setting `verbose=0` means no progress updates will be printed during training.
+
+During the training process, the model adjusts its internal weights based on the provided training data and tries to minimize the defined loss function (mean squared error in this case). The goal is to optimize the model's ability to make accurate predictions on the training data.
+
+By executing the `fit` method, the LSTM model learns to capture patterns and dependencies in the training data, fine-tuning its parameters to improve its predictive performance. The specified number of epochs determines the number of iterations through the training data, while the batch size controls the granularity of weight updates.
+
+
+
+
+
+
+
 
 ### Step 6: Evaluate Model Results
-
-- The model's performance is evaluated by calculating the loss on the training and test data.
+After training the model, it is expected to generalize its learned patterns to unseen data and make predictions on new or test data. The effectiveness of the trained model can be assessed by evaluating its performance on separate test data or by inspecting metrics such as loss values during training.
+```
+# Evaluating the model on training and test data
+Train_loss = model.evaluate(Train_X, Train_Y, verbose=0)
+Test_loss = model.evaluate(Test_X, Test_Y, verbose=0)
+print(f"Train Loss: {Train_loss:.4f}")  # Printing the training loss
+print(f"Test Loss: {Test_loss:.4f}")  # Printing the test loss
+```
 
 ### Step 7: Make Predictions
 
