@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ### Configuration
 
-Before running the code, you may need to configure the parameters to suit your needs. Open the `main.py` file and modify the following variables:
+Before running the code, you may need to configure the parameters to suit your needs. Open the `model.py` file and modify the following variables:
 
 - `start_date`: The start date for retrieving historical stock data
 - `end_date`: The end date for retrieving historical stock data
