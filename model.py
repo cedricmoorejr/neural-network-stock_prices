@@ -152,34 +152,46 @@ Test_predictions = model.predict(Test_X)
 inverted_Train_predictions = norm.inverse_transform(Train_predictions)
 inverted_Test_predictions = norm.inverse_transform(Test_predictions)
 
+
 ##================================================================
 ##                   Step 8: Visualize                          ==
 ##================================================================
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
-# Plot actual and predicted values on the training data with custom colors
+# Plot actual and predicted values on the training data with updated date format
 plt.figure(figsize=(12, 6))
-plt.plot(train_data.index, train_data["Close"], color="blue", label="Actual")
-plt.plot(train_data.index[choose_sequence_length:], inverted_Train_predictions, color="orange", label="Predicted")
+plt.plot(train_data["Date"], train_data["Close"], color="blue", label="Actual")
+plt.plot(train_data["Date"].iloc[choose_sequence_length:], inverted_Train_predictions, color="orange", label="Predicted")
 plt.title("Actual vs. Predicted Stock Prices (Training Data)")
 plt.xlabel("Date")
 plt.ylabel("Price")
 plt.legend()
+
+# Customize the date format for the x-axis labels
+date_format = mdates.DateFormatter("%Y-%m-%d")  # Choose your desired date format
+plt.gca().xaxis.set_major_formatter(date_format)
 plt.xticks(rotation=45)
+
 plt.grid(True)
 plt.show()
 
-# Plot actual and predicted values on the testing data with custom colors
+# Plot actual and predicted values on the testing data with updated date format
 plt.figure(figsize=(12, 6))
-plt.plot(test_data.index, test_data["Close"], color="green", label="Actual")
-plt.plot(test_data.index[choose_sequence_length:], inverted_Test_predictions, color="purple", label="Predicted")
+plt.plot(test_data["Date"], test_data["Close"], color="green", label="Actual")
+plt.plot(test_data["Date"].iloc[choose_sequence_length:], inverted_Test_predictions, color="purple", label="Predicted")
 plt.title("Actual vs. Predicted Stock Prices (Testing Data)")
 plt.xlabel("Date")
 plt.ylabel("Price")
 plt.legend()
+
+# Customize the date format for the x-axis labels
+plt.gca().xaxis.set_major_formatter(date_format)
 plt.xticks(rotation=45)
+
 plt.grid(True)
 plt.show()
+
 
 
 
