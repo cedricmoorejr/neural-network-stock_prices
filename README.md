@@ -33,13 +33,13 @@ To get started with the project, follow these steps:
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/cedricmoorejr/LongShortTermMemory-stock_prices.git
+git clone https://github.com/cedricmoorejr/neural-network-stock_prices.git
 ```
 
 2. Navigate to the project directory:
 
 ```shell
-cd LongShortTermMemory-stock_prices
+cd neural-network-stock_prices
 ```
 
 3. Install the required dependencies:
