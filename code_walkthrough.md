@@ -1,4 +1,4 @@
-## Code Walkthrough
+## LSTM Code Walkthrough
 
 This walkthrough provides a step-by-step explanation of the code.
 
