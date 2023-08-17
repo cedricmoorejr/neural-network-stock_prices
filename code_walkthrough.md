@@ -224,7 +224,7 @@ Next we will focus on building the model.
 # Begin defining model architecture
 model = Sequential()
 
-# Add an LSTM layer with 50 units and specify the input shape
+# Add an LSTM layer with 60 units and specify the input shape
 # choose_sequence_length is the length of each sequence
 # The input shape is (choose_sequence_length, 1) since we have 1 feature
 # Set return_sequences=True to return the output sequence rather than just the last output
